@@ -1,0 +1,15 @@
+# 本地私有资料及待确认授权的材料
+/private/
+
+# 操作系统生成的辅助文件
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# 编辑器临时文件
+*.swp
+*.swo
+*~
+
+# Microsoft Office 临时锁文件
+~$*
