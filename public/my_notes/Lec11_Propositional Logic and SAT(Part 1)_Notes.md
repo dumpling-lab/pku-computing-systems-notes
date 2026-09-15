@@ -192,23 +192,23 @@ $$
 
    对于常量：
 
-   $$
+   ```math
    I\models 1
-   $$
+   ```
 
-   $$
+   ```math
    I\not\models 0
-   $$
+   ```
 
    对于原子命题 $p$：
 
-   $$
+   ```math
    I\models p \quad \text{iff} \quad I(p)=1
-   $$
+   ```
 
-   $$
+   ```math
    I\not\models p \quad \text{iff} \quad I(p)=0
-   $$
+   ```
 
 2. **归纳情况**
 

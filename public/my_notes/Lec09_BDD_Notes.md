@@ -53,9 +53,9 @@ $$
 
 - 设变量顺序为：
 
-  $$
+  ```math
   x_1 < x_2 < x_3 < \cdots < x_n
-  $$
+  ```
 
   一个 BDD 满足该 ordering，意思是：在任意一条从 root 到 terminal 的路径上，变量出现的顺序必须与预定义顺序一致。
 
@@ -385,29 +385,29 @@ AND 的基本规则：$F\land 0=0$、$F\land 1=F$ 。
 
    选择 \(F\) 和 \(G\) 当前 root 变量中顺序更靠前的变量 \(v\)，对 \(v\) 做 Shannon 展开。
 
-   $$
+   ```math
    F\ op\ G
    =
    \overline{v}(F_{v=0}\ op\ G_{v=0})
    \lor
    v(F_{v=1}\ op\ G_{v=1})
-   $$
+   ```
 
    于是递归计算：
 
-   $$
+   ```math
    L=apply(op,F_{v=0},G_{v=0})
-   $$
+   ```
 
-   $$
+   ```math
    H=apply(op,F_{v=1},G_{v=1})
-   $$
+   ```
 
    最后返回：
 
-   $$
+   ```math
    mk(v,L,H)
-   $$
+   ```
 
 3. **变量关系的讨论：**
 
@@ -422,75 +422,75 @@ AND 的基本规则：$F\land 0=0$、$F\land 1=F$ 。
 
    直接计算真值：
 
-   $$
+   ```math
    return\ op(F,G)\text{-terminal}
-   $$
+   ```
 
    **情况 2：\(v_F=v_G\)**
 
    两个 BDD 当前都以同一个变量分支：
 
-   $$
+   ```math
    L=apply(op,F.low,G.low)
-   $$
+   ```
 
-   $$
+   ```math
    H=apply(op,F.high,G.high)
-   $$
+   ```
 
    返回：
 
-   $$
+   ```math
    mk(v_F,L,H)
-   $$
+   ```
 
    **情况 3：\(v_F<v_G\)**
 
    \(F\) 当前变量更靠前，\(G\) 还没有分支到这个变量。此时相当于：
 
-   $$
+   ```math
    G_{v_F=0}=G_{v_F=1}=G
-   $$
+   ```
 
    所以：
 
-   $$
+   ```math
    L=apply(op,F.low,G)
-   $$
+   ```
 
-   $$
+   ```math
    H=apply(op,F.high,G)
-   $$
+   ```
 
    返回：
 
-   $$
+   ```math
    mk(v_F,L,H)
-   $$
+   ```
 
    **情况 4：\(v_F>v_G\)**
 
    对称处理：
 
-   $$
+   ```math
    F_{v_G=0}=F_{v_G=1}=F
-   $$
+   ```
 
    所以：
 
-   $$
+   ```math
    L=apply(op,F,G.low)
-   $$
+   ```
 
-   $$
+   ```math
    H=apply(op,F,G.high)
-   $$
+   ```
 
    返回：
 
-   $$
+   ```math
    mk(v_G,L,H)
-   $$
+   ```
 
 4. **伪代码：**
 
