@@ -1382,12 +1382,8 @@ endmodule
 
 对应：
 
-$$
-count'=\begin{cases}
-0, & rst=1\\
-count+1, & rst=0
-\end{cases}
-$$
+- 当 $`rst=1`$ 时，$`count'=0`$；
+- 当 $`rst=0`$ 时，$`count'=count+1`$。
 
 #### 6.4 转移检查函数
 

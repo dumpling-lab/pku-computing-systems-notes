@@ -568,14 +568,9 @@ for (int i = 0; i < k; i++){
 
 类似 $`Dijkstra`$，在松弛边 $`u \to v`$ 时，同时更新最短路径条数 $`f_{s\to v}`$，规则如下：
 
-$$
-f_{s\to v}:=
-\begin{cases}
-f_{s\to v}, & d_{s\to u}+w_{u\to v}>d_{s\to v}\\[4pt]
-f_{s\to v}+f_{s\to u}, & d_{s\to u}+w_{u\to v}=d_{s\to v}\\[4pt]
-f_{s\to u}, & d_{s\to u}+w_{u\to v}<d_{s\to v}
-\end{cases}
-$$
+- 若 $`d_{s\to u}+w_{u\to v}>d_{s\to v}`$，保持 $`f_{s\to v}`$ 不变；
+- 若 $`d_{s\to u}+w_{u\to v}=d_{s\to v}`$，令 $`f_{s\to v}\leftarrow f_{s\to v}+f_{s\to u}`$；
+- 若 $`d_{s\to u}+w_{u\to v}<d_{s\to v}`$，令 $`f_{s\to v}\leftarrow f_{s\to u}`$。
 
 是否可行？
 
