@@ -4,7 +4,7 @@
 
 ### 1.BDT（Binary Decision Tree）
 
-**BDT ，即二元决策树。**对于一个布尔函数，从根节点开始，每层判断一个变量：
+**BDT ，即二元决策树。** 对于一个布尔函数，从根节点开始，每层判断一个变量：
 
 - 走 0 边：该变量取 0 / false；
 - 走 1 边：该变量取 1 / true；
@@ -47,13 +47,12 @@ $$
 
 ### 3.ROBDD（Reduced Ordered Binary Decision Diagram）
 
-**ROBDD，中文译作 “约简有序二元决策图” ，**是布尔函数的规范表示。
+**ROBDD，中文译作 “约简有序二元决策图” ，** 是布尔函数的规范表示。
 
 #### 3.1 Ordered：变量顺序固定
 
 - 设变量顺序为：
 
-  
   $$
   x_1 < x_2 < x_3 < \cdots < x_n
   $$
@@ -123,7 +122,7 @@ $$
 
 #### 3.3 ROBDD 的规范性
 
-**Bryant定理：**对固定的变量顺序，一个布尔函数的ROBDD是唯一的。
+**Bryant定理：** 对固定的变量顺序，一个布尔函数的ROBDD是唯一的。
 
 **推论：**
 
@@ -146,19 +145,18 @@ $$
 
   为了让相同节点只存在一份，BDD 实现一般维护一个 **unique table**：$(v,l,h) \mapsto node\_id$ 。
 
-
 - 代码实现：unique table 使用 map 实现，节点三元组使用 tuple 实现。
 
   ```c++
   #include <tuple>
   #include <map>
-  
+
   map<tuple<int, int, int>, int> unique_table; // 声明唯一表
-  
+
   tuple<int, int, int> key = make_tuple(var, low, high); // 创建map的key
-  
+
   if (unique_table.count(key)) { // 检查key是否在唯一表中，存在则返回1，不存在则返回0
-  	// key存在时...
+      // key存在时...
   }
   ```
 
@@ -168,7 +166,7 @@ $$
 
 ### 2.Reduce 操作
 
- 常把**“ Reduce ”和“查 unique table ”**合成一个 `mk` 函数：
+ 常把 **“ Reduce ”和“查 unique table ”** 合成一个 `mk` 函数：
 
 1. 如果`low == high` ，删除无用节点。
 2. 如果 unique table 中已经存在三元组 \((v,l,h)\)，返回已有节点编号。
@@ -260,7 +258,6 @@ reduce(node):
 - 可以考虑一边 DFS，一边根据当前赋值计算公式值，从而可以**不显式建立 BDT**。
 - 设变量顺序储存在 order 数组中，例如 order = [x1, x2, x3, ..., xn] 。
 
-
 **构造函数的伪代码：**
 
 ```C++
@@ -277,17 +274,17 @@ build_robdd(F, i):
     v = order[i] // 按照预先固定的变量顺序选择当前分支变量
 
     low  = build_robdd(F0, i + 1) // F0 是把变量 v 固定为 0 后得到的新布尔公式
-    							  // 递归构造 low child
+                                  // 递归构造 low child
 
     high = build_robdd(F1, i + 1) // F1 是把变量 v 固定为 1 后得到的新布尔公式
-    							  // 递归构造 high child
+                                  // 递归构造 high child
 
     if low == high: // 如果两个分支相同，说明变量 v 对结果没有影响，节点 (v, low, high) 是冗余节点，可以删除
         return low
 
     return lookup(v, low, high) // 在 unique table 中查找三元组 (v, low, high)
-    							// 如果已经存在，返回已有节点编号
-    							// 如果不存在，新建节点并插入 unique table
+                                // 如果已经存在，返回已有节点编号
+                                // 如果不存在，新建节点并插入 unique table
 ```
 
 ------
@@ -312,15 +309,15 @@ U --> S[shared internal nodes]
 
 ### 5.从公式直接构造 BDD
 
-- **前面的构造方法：**本质上是从 BDT 或真值表出发：按照固定变量顺序展开所有可能输入赋值，再在回溯过程中通过 `mk` 和 `unique table` 进行 reduce 操作，最终得到 ROBDD。但这种方法的代价很高，对于 $n$ 个变量，完整 BDT 有 $2^n$ 个叶子，因此直接从完整 BDT 或真值表构造 BDD 在实际规模较大的问题中并不合适。
-- **更高效地构造 BDD：**直接从布尔公式 $F$ 出发。我们已经知道最基本的 BDD：常量 false 对应 0_terminal，常量 true 对应 1_terminal，变量 $x$ 对应节点 $(x,0,1)$。如果能够在这些基本 BDD 之间定义逻辑运算，例如 NOT、AND、OR、XOR、ITE，那么**复杂公式的 BDD 就可以通过这些基本 BDD 自底向上逐步组合得到**。
+- **前面的构造方法：** 本质上是从 BDT 或真值表出发：按照固定变量顺序展开所有可能输入赋值，再在回溯过程中通过 `mk` 和 `unique table` 进行 reduce 操作，最终得到 ROBDD。但这种方法的代价很高，对于 $n$ 个变量，完整 BDT 有 $2^n$ 个叶子，因此直接从完整 BDT 或真值表构造 BDD 在实际规模较大的问题中并不合适。
+- **更高效地构造 BDD：** 直接从布尔公式 $F$ 出发。我们已经知道最基本的 BDD：常量 false 对应 0_terminal，常量 true 对应 1_terminal，变量 $x$ 对应节点 $(x,0,1)$。如果能够在这些基本 BDD 之间定义逻辑运算，例如 NOT、AND、OR、XOR、ITE，那么**复杂公式的 BDD 就可以通过这些基本 BDD 自底向上逐步组合得到**。
 - 由此，问题就转化为：如何在已有的基本 BDD 上定义和实现逻辑操作。
 
 ------
 
 ### 6.BDD Operations
 
-**理论基础：**shannon 展开，对任意布尔函数 \(F\)，选择变量 \(x\)，有：
+**理论基础：** shannon 展开，对任意布尔函数 \(F\)，选择变量 \(x\)，有：
 
 $$
 F = \overline{x}F_{x=0} \lor xF_{x=1}
@@ -355,7 +352,7 @@ not(u):
 
 #### 6.2 Cofactoring（取余因子）
 
-1. **定义：**对布尔函数 \(F\)，把变量 \(x\) 固定为 0 或 1，得到的函数称为 cofactor。
+1. **定义：** 对布尔函数 \(F\)，把变量 \(x\) 固定为 0 或 1，得到的函数称为 cofactor。
 
 2. **cofactoring 操作：**
 
@@ -382,7 +379,7 @@ AND 的基本规则：$F\land 0=0$、$F\land 1=F$ 。
 
 #### 7.1 二元 apply
 
-1. **结构：**给定两个 BDD \(F, G\) 和一个二元逻辑算子 \(op\)，\(apply(op,F,G)\) 返回 \(BDD(F\ op\ G)\)。
+1. **结构：** 给定两个 BDD \(F, G\) 和一个二元逻辑算子 \(op\)，\(apply(op,F,G)\) 返回 \(BDD(F\ op\ G)\)。
 
 2. **实现思想：递归**
 
@@ -501,25 +498,25 @@ AND 的基本规则：$F\land 0=0$、$F\land 1=F$ 。
    apply(op, F, G):
        if F is terminal and G is terminal:
            return terminal(op(F.value, G.value))
-   
+
        vF = top variable of F, or +infinity if F is terminal
        vG = top variable of G, or +infinity if G is terminal
-   
+
        if vF == vG:
            low  = apply(op, F.low,  G.low)
            high = apply(op, F.high, G.high)
            v = vF
-   
+
        else if vF < vG:
            low  = apply(op, F.low,  G)
            high = apply(op, F.high, G)
            v = vF
-   
+
        else:
            low  = apply(op, F, G.low)
            high = apply(op, F, G.high)
            v = vG
-   
+
        return mk(v, low, high)
    ```
 
@@ -599,9 +596,9 @@ ITE 就是一个三元 apply：$apply_3(ITE,F,G,H)$ 。
 
 #### 1.1 普通模拟 vs 符号模拟
 
-- **普通模拟：**给定具体输入值，计算输出值。
+- **普通模拟：** 给定具体输入值，计算输出值。
 
-- **符号模拟：**输入不是具体 0/1，而是布尔变量。输出也表示成关于输入变量的布尔函数。
+- **符号模拟：** 输入不是具体 0/1，而是布尔变量。输出也表示成关于输入变量的布尔函数。
 
 ------
 

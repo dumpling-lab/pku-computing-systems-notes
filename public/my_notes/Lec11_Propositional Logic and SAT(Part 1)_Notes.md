@@ -1,6 +1,6 @@
 # Lec11_Propositional Logic and SAT(Part 1)_Notes
 
-# 零-知识地图
+## 零-知识地图
 
 ```mermaid
 flowchart TD
