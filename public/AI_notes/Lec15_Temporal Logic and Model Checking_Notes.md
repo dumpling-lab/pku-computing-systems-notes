@@ -111,7 +111,7 @@ $$
 |---|---|
 | $S$ | 状态集合，set of states |
 | $I \subseteq S$ | 初始状态集合，set of initial states |
-| $T \subseteq S \times S$ | 状态转移关系，$(s,s') \in T$ 表示状态 $s$ 可以一步转移到 $s'$ |
+| $T \subseteq S \times S$ | 状态转移关系， $(s,s') \in T$ 表示状态 $s$ 可以一步转移到 $s'$ |
 | $L:S\to 2^{AP}$ | 标记函数，给每个状态标上它满足的原子命题集合 |
 | $AP$ | atomic propositions，原子命题集合 |
 
@@ -160,8 +160,8 @@ LTL 关注一条线性的执行轨迹。可以理解为：
 
 LTL 公式由三类成分组成：
 
-1. 原子命题：$p,q,req,ack,term \in AP$；
-2. 普通逻辑连接词：$\land,\lor,\neg,\rightarrow, TRUE, FALSE$；
+1. 原子命题： $p,q,req,ack,term \in AP$；
+2. 普通逻辑连接词： $\land,\lor,\neg,\rightarrow, TRUE, FALSE$；
 3. 时态算子：
    - $X$：next，下一个状态；
    - $U$：until，直到；
@@ -189,15 +189,15 @@ $$
 
 含义：轨迹 $\pi$ 满足 $p$，当且仅当当前状态 $s_0$ 的标签中包含 $p$。
 
-##### Next：$X\varphi$
+##### Next： $X\varphi$
 
 $$
 \pi \models X\varphi \quad \text{iff} \quad \pi^1 \models \varphi
 $$
 
-含义：$\varphi$ 在下一个状态开始的轨迹上成立。
+含义： $\varphi$ 在下一个状态开始的轨迹上成立。
 
-##### Until：$\varphi U \psi$
+##### Until： $\varphi U \psi$
 
 $$
 \pi \models \varphi U \psi
@@ -215,9 +215,9 @@ $$
 \pi^k\models \varphi
 $$
 
-含义：$\varphi$ 一直成立，直到某一时刻 $\psi$ 成立。注意这里要求 $\psi$ 最终必须成立。
+含义： $\varphi$ 一直成立，直到某一时刻 $\psi$ 成立。注意这里要求 $\psi$ 最终必须成立。
 
-##### Finally / Eventually：$F\varphi$
+##### Finally / Eventually： $F\varphi$
 
 $$
 \pi \models F\varphi \quad \text{iff} \quad \exists i\ge 0,\ \pi^i\models \varphi
@@ -231,7 +231,7 @@ $$
 F\varphi \equiv TRUE\ U\ \varphi
 $$
 
-##### Globally / Always：$G\varphi$
+##### Globally / Always： $G\varphi$
 
 $$
 \pi \models G\varphi \quad \text{iff} \quad \forall i\ge 0,\ \pi^i\models \varphi
@@ -263,7 +263,7 @@ $$
 req\ U\ ack
 $$
 
-含义：在 $ack$ 到来之前，$req$ 一直保持；并且 $ack$ 最终会出现。
+含义：在 $ack$ 到来之前， $req$ 一直保持；并且 $ack$ 最终会出现。
 
 ##### 例 3：程序最终终止
 
@@ -298,12 +298,12 @@ CTL 引入路径量词：
 |---|---|
 | $AX\varphi$ | 所有后继状态都满足 $\varphi$ |
 | $EX\varphi$ | 存在一个后继状态满足 $\varphi$ |
-| $AG\varphi$ | 所有路径上，$\varphi$ 永远成立 |
+| $AG\varphi$ | 所有路径上， $\varphi$ 永远成立 |
 | $EG\varphi$ | 存在一条路径，使得 $\varphi$ 永远成立 |
 | $AF\varphi$ | 所有路径上，未来最终都会到达 $\varphi$ |
 | $EF\varphi$ | 存在一条路径，未来某时刻到达 $\varphi$ |
-| $A[\varphi U \psi]$ | 所有路径上，$\varphi$ 一直成立直到 $\psi$ 成立 |
-| $E[\varphi U \psi]$ | 存在一条路径，$\varphi$ 一直成立直到 $\psi$ 成立 |
+| $A[\varphi U \psi]$ | 所有路径上， $\varphi$ 一直成立直到 $\psi$ 成立 |
+| $E[\varphi U \psi]$ | 存在一条路径， $\varphi$ 一直成立直到 $\psi$ 成立 |
 
 #### 1.2 CTL 例子
 
@@ -566,7 +566,7 @@ $$
 
 含义：当前状态 $\mathbf{x}$ 如果存在一个下一状态 $\mathbf{x}'$ 属于 $P$，那么 $\mathbf{x}$ 就是 $P$ 的前驱。
 
-在符号模型检测中，显式图遍历被替换为 BDD 上的 $succ$、$prev$、布尔运算和量词消去。
+在符号模型检测中，显式图遍历被替换为 BDD 上的 $succ$、 $prev$、布尔运算和量词消去。
 
 #### 1.5 用 BDD 做 $EF\ p$
 
@@ -642,13 +642,13 @@ $$
 
 并且在末尾加一个回边，让 $s_k$ 回到前面某个状态，从而形成无限循环。
 
-使用 $(k,l)$-lasso 记号：路径有 $k$ 次转移、$k+1$ 个状态；$l$ 是循环中的状态数。若 $1\le l\le k+1$，回边约束为：
+使用 $(k,l)$-lasso 记号：路径有 $k$ 次转移、 $k+1$ 个状态； $l$ 是循环中的状态数。若 $1\le l\le k+1$，回边约束为：
 
 $$
 T(s_k,s_{k-l+1})
 $$
 
-这样有限状态序列就能表示一条无限执行路径。$l=0$ 表示不加回边的有限路径。搜索 $F\ p$ 的反例时，须枚举所有合法 $l$，或将这些回边约束取析取；不能只固定一个 $l$ 后就排除该深度的所有循环反例。
+这样有限状态序列就能表示一条无限执行路径。 $l=0$ 表示不加回边的有限路径。搜索 $F\ p$ 的反例时，须枚举所有合法 $l$，或将这些回边约束取析取；不能只固定一个 $l$ 后就排除该深度的所有循环反例。
 
 #### 1.3 SAT 公式化
 
@@ -728,14 +728,14 @@ $$
 T(X,X')=Inc(X,X')
 $$
 
-表示计数器加一。其中，$x_0$ 是低位，状态显示顺序取 $x_1x_0$：
+表示计数器加一。其中， $x_0$ 是低位，状态显示顺序取 $x_1x_0$：
 
-$
+```math
 Inc(X,X')=(x_0\oplus x_0')\land
 \neg(x_0\oplus x_1\oplus x_1')
-$
+```
 
-即 $x_0'=\neg x_0$，$x_1'=x_1\oplus x_0$。第二个括号外的否定不能漏掉。
+即 $x_0'=\neg x_0$， $x_1'=x_1\oplus x_0$。第二个括号外的否定不能漏掉。
 
 在前面的符号计算例子中，若 $P(X)=x_0\oplus x_1$，则 $P$ 包含 01、10，其后继为 10、11，因此 $succ(P,T)(X')=x_1'$。
 

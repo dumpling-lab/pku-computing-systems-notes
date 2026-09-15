@@ -65,7 +65,7 @@ $$
 P(f(x), y)
 $$
 
-但是 $f$ 到底是什么意思？$P$ 到底是什么意思？这取决于 structure / interpretation。
+但是 $f$ 到底是什么意思？ $P$ 到底是什么意思？这取决于 structure / interpretation。
 
 也就是说，在 FOL 语义里：
 
@@ -183,7 +183,7 @@ $$
 - 函数具体做什么不固定；
 - 但函数必须满足“相等输入给出相等输出”的一致性。
 
-例如，$f$ 不一定是平方函数、加法函数或某种具体函数，但如果 $x=y$，那么一定要有：
+例如， $f$ 不一定是平方函数、加法函数或某种具体函数，但如果 $x=y$，那么一定要有：
 
 $$
 f(x)=f(y)
@@ -217,7 +217,7 @@ $$
 \forall x,y,z.\ (x=y \land y=z) \rightarrow x=z
 $$
 
-含义：如果 $x$ 等于 $y$，$y$ 等于 $z$，那么 $x$ 等于 $z$。
+含义：如果 $x$ 等于 $y$， $y$ 等于 $z$，那么 $x$ 等于 $z$。
 
 这三个性质说明 `=` 至少是一个 **equivalence relation（等价关系）**。
 
@@ -264,14 +264,14 @@ $$
 这表示：
 
 - $1=3$ 为真；
-- $2=4$、$2=5$、$4=5$ 为真；
-- $1=2$、$3=5$ 等跨等价类关系为假。
+- $2=4$、 $2=5$、 $4=5$ 为真；
+- $1=2$、 $3=5$ 等跨等价类关系为假。
 
 等价类划分自动满足：
 
 1. 自反性：每个元素都在某个等价类里，所以 $x=x$；
 2. 对称性：如果 $x,y$ 同类，则 $y,x$ 也同类；
-3. 传递性：如果 $x,y$ 同类，$y,z$ 同类，则 $x,z$ 同类。
+3. 传递性：如果 $x,y$ 同类， $y,z$ 同类，则 $x,z$ 同类。
 
 ------
 
@@ -342,7 +342,7 @@ M \models A
 \quad \text{for every } A\in A_T
 $$
 
-那么称 $M$ 是 $T$ 的一个模型，记作 **$T$-model**。
+那么称 $M$ 是 $T$ 的一个模型，记作 $T$-model。
 
 #### 5.2 例子：满足等式理论的模型
 
@@ -379,7 +379,7 @@ $$
 
 #### 6.1 $T$-satisfiable
 
-一个公式 $F$ 是 **$T$-satisfiable**，意思是：
+一个公式 $F$ 是 $T$-satisfiable，意思是：
 
 存在一个 $T$-model $M$ 和一个 assignment $s$，使得：
 
@@ -391,7 +391,7 @@ $$
 
 #### 6.2 $T$-valid
 
-一个公式 $F$ 是 **$T$-valid**，意思是：
+一个公式 $F$ 是 $T$-valid，意思是：
 
 对于所有 $T$-model $M$ 和所有 assignment $s$，都有：
 
@@ -405,7 +405,7 @@ $$
 T\models F
 $$
 
-注意：$T$-valid 应理解为“valid modulo theory $T$”，不是 satisfiable。
+注意： $T$-valid 应理解为“valid modulo theory $T$”，不是 satisfiable。
 
 #### 6.3 和普通 FOL satisfiability 的区别
 
@@ -533,7 +533,7 @@ $$
 
 下面区分三种整数/自然数理论。
 
-#### 3.1 Peano Arithmetic：$T_{PA}$
+#### 3.1 Peano Arithmetic： $T_{PA}$
 
 Peano arithmetic 通常在自然数上讨论，并允许：
 
@@ -589,7 +589,7 @@ $$
 
 这里 $w$ 可以为 0。
 
-#### 3.3 Presburger Arithmetic：$T_{\mathbb{N}}$
+#### 3.3 Presburger Arithmetic： $T_{\mathbb{N}}$
 
 Presburger arithmetic 是自然数上的加法理论：
 
@@ -600,7 +600,7 @@ Presburger arithmetic 是自然数上的加法理论：
 
 也就是说，Presburger arithmetic 中任意公式的有效性/可满足性理论上可以由算法判定。
 
-#### 3.4 Linear Integer Arithmetic：$T_{\mathbb{Z}}$
+#### 3.4 Linear Integer Arithmetic： $T_{\mathbb{Z}}$
 
 Theory of integers $T_{\mathbb{Z}}$ 是整数上的线性整数算术，也叫 LIA。
 
@@ -621,7 +621,7 @@ $$
 - 加法；
 - 减法；
 - 比较；
-- 常数乘法，例如 $3x$、$-2x$。
+- 常数乘法，例如 $3x$、 $-2x$。
 
 但不允许一般的变量乘变量，例如：
 
@@ -921,11 +921,11 @@ $$
 
 这里同时用到了：
 
-- bit extraction：$a[1:0]$；
-- bitwise or：$a|b$；
-- arithmetic subtraction：$c-b$；
-- comparison：$a<c$；
-- xor：$a[1]\oplus b[1]$。
+- bit extraction： $a[1:0]$；
+- bitwise or： $a|b$；
+- arithmetic subtraction： $c-b$；
+- comparison： $a<c$；
+- xor： $a[1]\oplus b[1]$。
 
 #### 5.4 XOR 交换例子
 
@@ -1175,7 +1175,7 @@ $$
 
 ------
 
-### 5.例子 1：$f(a,b)=a \land f(f(a,b),b)\ne a$
+### 5.例子 1： $f(a,b)=a \land f(f(a,b),b)\ne a$
 
 #### 5.1 公式
 
@@ -1257,7 +1257,7 @@ $$
 
 ------
 
-### 6.例子 2：$f^3(a)=a \land f^5(a)=a \land f(a)\ne a$
+### 6.例子 2： $f^3(a)=a \land f^5(a)=a \land f(a)\ne a$
 
 #### 6.1 公式
 
@@ -2056,7 +2056,7 @@ $$
 count_3 = ite(\phi, \alpha, count_2)
 $$
 
-**注意：**$\phi$ 和 $\alpha$ 不是每个周期重新选一遍，而是所有展开周期共享同一组修复变量。
+**注意：** $\phi$ 和 $\alpha$ 不是每个周期重新选一遍，而是所有展开周期共享同一组修复变量。
 
 这符合“代码修复”的含义：
 
@@ -2237,9 +2237,9 @@ $$
 
 若已知不修改时测试失败，可以先尝试：
 
-$
+```math
 \#repair = 1
-$
+```
 
 如果 UNSAT，再尝试：
 

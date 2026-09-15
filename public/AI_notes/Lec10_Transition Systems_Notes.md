@@ -59,10 +59,10 @@ $$
 |---|---|---|
 | $S$ | state space | 状态空间，系统所有可能状态的集合 |
 | $Act$ | actions | 动作集合 |
-| $\rightarrow$ | transition relation | 转移关系，$\rightarrow\subseteq S\times Act\times S$ |
-| $S_0$ | initial states | 初始状态集合，$S_0\subseteq S$ |
+| $\rightarrow$ | transition relation | 转移关系， $\rightarrow\subseteq S\times Act\times S$ |
+| $S_0$ | initial states | 初始状态集合， $S_0\subseteq S$ |
 | $AP$ | atomic propositions | 原子命题集合，用来描述状态性质 |
-| $L$ | labeling function | 标记函数，$L:S\to 2^{AP}$ |
+| $L$ | labeling function | 标记函数， $L:S\to 2^{AP}$ |
 
 转移可以写成：
 
@@ -186,7 +186,7 @@ $$
 L(Select)=\emptyset
 $$
 
-另一种标记方式是：$AP=S$，且 $L(s)=\{s\}$。两种标记方式关注的状态性质不同，不能混为一套定义。
+另一种标记方式是： $AP=S$，且 $L(s)=\{s\}$。两种标记方式关注的状态性质不同，不能混为一套定义。
 
 图示：
 
@@ -862,7 +862,7 @@ $$
 | $Loc$ | 有限 location 集合 |
 | $Act$ | 动作集合 |
 | $Effect$ | 动作对变量 evaluation 的影响 |
-| $\hookrightarrow$ | 条件转移关系，$\hookrightarrow\subseteq Loc\times Cond(Var)\times Act\times Loc$ |
+| $\hookrightarrow$ | 条件转移关系， $\hookrightarrow\subseteq Loc\times Cond(Var)\times Act\times Loc$ |
 | $Loc_0$ | 初始 location 集合 |
 | $g_0$ | 初始变量条件 |
 
@@ -951,7 +951,7 @@ $$
 \to \langle l_3, 0, 2 \rangle
 $$
 
-这里三元组依次表示 location、$x$、$y$。如果要精确表示这一个初始赋值，应取 $g_0=(x=2\land y=0)$；仅有 $x>0$ 不能确定全部初始值。
+这里三元组依次表示 location、 $x$、 $y$。如果要精确表示这一个初始赋值，应取 $g_0=(x=2\land y=0)$；仅有 $x>0$ 不能确定全部初始值。
 
 ------
 
@@ -1039,7 +1039,7 @@ $$
 (s_1,s_2)\in S_1\times S_2
 $$
 
-把 $(P,R)$ 写成 `PR`，$(Q,T)$ 写成 `QT`。
+把 $(P,R)$ 写成 `PR`， $(Q,T)$ 写成 `QT`。
 
 初始状态也必须配对。对于两个给定初始状态的电路，product 的初始状态就是这两个状态组成的状态对。若分别给出初始状态集合，则这里按 $S_{0,prod}=S_{0,1}\times S_{0,2}$ 比较所有初始组合。
 

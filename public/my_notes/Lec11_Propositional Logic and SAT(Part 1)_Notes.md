@@ -212,12 +212,12 @@ $$
 
 2. **归纳情况**
 
-   - 否定：$I\models \lnot F \quad \text{iff} \quad I\not\models F$
-   - 合取：$I\models F_1\land F_2 \quad \text{iff} \quad I\models F_1 \text{ and } I\models F_2$
-   - 析取：$I\models F_1\lor F_2 \quad \text{iff} \quad I\models F_1 \text{ or } I\models F_2$
-   - 蕴涵：$I\models F_1\to F_2 \quad \text{iff} \quad I\not\models F_1 \text{ or } I\models F_2$
+   - 否定： $I\models \lnot F \quad \text{iff} \quad I\not\models F$
+   - 合取： $I\models F_1\land F_2 \quad \text{iff} \quad I\models F_1 \text{ and } I\models F_2$
+   - 析取： $I\models F_1\lor F_2 \quad \text{iff} \quad I\models F_1 \text{ or } I\models F_2$
+   - 蕴涵： $I\models F_1\to F_2 \quad \text{iff} \quad I\not\models F_1 \text{ or } I\models F_2$
 
-   - 等价：$I\models F_1\leftrightarrow F_2 \quad \text{iff} \quad (I\models F_1 \text{ and } I\models F_2) \text{ or } (I\not\models F_1 \text{ and } I\not\models F_2)$
+   - 等价： $I\models F_1\leftrightarrow F_2 \quad \text{iff} \quad (I\models F_1 \text{ and } I\models F_2) \text{ or } (I\not\models F_1 \text{ and } I\not\models F_2)$
 
 ------
 
@@ -341,7 +341,7 @@ $$
 \frac{I\not\models \lnot F}{I\models F}
 $$
 
-2. **合取规则：$F\land G$**
+2. **合取规则： $F\land G$**
 
 合取为真时，两边都必须为真：
 
@@ -355,7 +355,7 @@ $$
 \frac{I\not\models F\land G}{I\not\models F \mid I\not\models G}
 $$
 
-3. **析取规则：$F\lor G$**
+3. **析取规则： $F\lor G$**
 
 析取为真时，至少一边为真，因此需要分支：
 
@@ -369,7 +369,7 @@ $$
 \frac{I\not\models F\lor G}{I\not\models F \quad ; \quad I\not\models G}
 $$
 
-4. **蕴涵规则：$F\to G$**
+4. **蕴涵规则： $F\to G$**
 
 因为：
 
@@ -389,7 +389,7 @@ $$
 \frac{I\not\models F\to G}{I\models F \quad ; \quad I\not\models G}
 $$
 
-5. **等价规则：$F\leftrightarrow G$**
+5. **等价规则： $F\leftrightarrow G$**
 
 等价为真时，两边同真或同假：
 
@@ -431,7 +431,7 @@ $$
 
 ### 4.3 例子
 
-证明：$F:(p\land q)\to(p\lor\lnot q)$ 是 VALID。
+证明： $F:(p\land q)\to(p\lor\lnot q)$ 是 VALID。
 
 反证，假设存在解释 $I$，使得：
 
@@ -485,7 +485,7 @@ $$
 
 ## 五、语义上的Equivalence and Implication（等价和蕴含）
 
-$F_1 \leftrightarrow F_2$、$F_1 \to F_2$ 都是**公式**。
+$F_1 \leftrightarrow F_2$、 $F_1 \to F_2$ 都是**公式**。
 
 我们需要给定一个解释 $I$，才能判断它们的真值。
 
@@ -495,7 +495,7 @@ $F_1 \leftrightarrow F_2$、$F_1 \to F_2$ 都是**公式**。
 
 如果 $F_1 \leftrightarrow F_2$ 是 valid，也就是对所有解释都为真，那么我们有 $F_1 \text{ is equivalent to } F_2$ ，即 $F_1 \Leftrightarrow F_2$ 。
 
-意思是：$F_1 \text{ 和 } F_2 \text{ 在所有解释下真值完全相同}$  
+意思是： $F_1 \text{ 和 } F_2 \text{ 在所有解释下真值完全相同}$
 
 **注意：**
 
@@ -519,4 +519,4 @@ F_1\Rightarrow F_2
 F_1\to F_2 \text{ is valid}
 $$
 
-其含义是：对所有解释，只要 $F_1$ 为真，$F_2$ 必为真。
+其含义是：对所有解释，只要 $F_1$ 为真， $F_2$ 必为真。
