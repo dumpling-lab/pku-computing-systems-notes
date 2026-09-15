@@ -57,12 +57,12 @@ $$
 
 | 符号 | 名称 | 含义 |
 |---|---|---|
-| $S$ | state space | 状态空间，系统所有可能状态的集合 |
-| $Act$ | actions | 动作集合 |
-| $\rightarrow$ | transition relation | 转移关系， $\rightarrow\subseteq S\times Act\times S$ |
-| $S_0$ | initial states | 初始状态集合， $S_0\subseteq S$ |
-| $AP$ | atomic propositions | 原子命题集合，用来描述状态性质 |
-| $L$ | labeling function | 标记函数， $L:S\to 2^{AP}$ |
+| $`S`$ | state space | 状态空间，系统所有可能状态的集合 |
+| $`Act`$ | actions | 动作集合 |
+| $`\rightarrow`$ | transition relation | 转移关系， $`\rightarrow\subseteq S\times Act\times S`$ |
+| $`S_0`$ | initial states | 初始状态集合， $`S_0\subseteq S`$ |
+| $`AP`$ | atomic propositions | 原子命题集合，用来描述状态性质 |
+| $`L`$ | labeling function | 标记函数， $`L:S\to 2^{AP}`$ |
 
 转移可以写成：
 
@@ -70,7 +70,7 @@ $$
 s\xrightarrow{\alpha}s'
 $$
 
-表示系统在状态 $s$ 下执行动作 $\alpha$，然后进入状态 $s'$。
+表示系统在状态 $`s`$ 下执行动作 $`\alpha`$，然后进入状态 $`s'`$。
 
 也可以写成三元组：
 
@@ -78,7 +78,7 @@ $$
 (s,\alpha,s')\in\rightarrow
 $$
 
-#### 2.1 状态 $S$
+#### 2.1 状态 $`S`$
 
 状态描述系统在某一时刻的完整情况。例如：
 
@@ -87,7 +87,7 @@ $$
 - 程序中当前代码位置 + 变量当前取值；
 - 协议系统中每个进程的局部状态和通信缓冲区状态。
 
-#### 2.2 动作 $Act$
+#### 2.2 动作 $`Act`$
 
 动作描述系统状态变化的触发事件。例如：
 
@@ -96,7 +96,7 @@ $$
 - 程序中执行一条赋值语句；
 - 并发系统中某个线程执行一步。
 
-#### 2.3 原子命题 $AP$ 与标记函数 $L$
+#### 2.3 原子命题 $`AP`$ 与标记函数 $`L`$
 
 原子命题描述某个状态满足的性质。例如：
 
@@ -186,7 +186,7 @@ $$
 L(Select)=\emptyset
 $$
 
-另一种标记方式是： $AP=S$，且 $L(s)=\{s\}$。两种标记方式关注的状态性质不同，不能混为一套定义。
+另一种标记方式是： $`AP=S`$，且 $`L(s)=\{s\}`$。两种标记方式关注的状态性质不同，不能混为一套定义。
 
 图示：
 
@@ -263,25 +263,25 @@ $$
 x=0,y=0
 $$
 
-如果先执行 $y:=2x$：
+如果先执行 $`y:=2x`$：
 
 $$
 y=0
 $$
 
-再执行 $x:=x+1$：
+再执行 $`x:=x+1`$：
 
 $$
 x=1,y=0
 $$
 
-如果先执行 $x:=x+1$：
+如果先执行 $`x:=x+1`$：
 
 $$
 x=1
 $$
 
-再执行 $y:=2x$：
+再执行 $`y:=2x`$：
 
 $$
 y=2
@@ -305,15 +305,15 @@ $$
 
 ### 5.Direct Predecessors 与 Direct Successors
 
-给定状态 $s$ 和动作 $\alpha$。
+给定状态 $`s`$ 和动作 $`\alpha`$。
 
-#### 5.1 Direct $\alpha$-predecessors
+#### 5.1 Direct $`\alpha`$-predecessors
 
 $$
 Pre_\alpha(s)=\{s'\in S\mid s'\xrightarrow{\alpha}s\}
 $$
 
-意思是：哪些状态可以通过动作 $\alpha$ 一步到达 $s$。
+意思是：哪些状态可以通过动作 $`\alpha`$ 一步到达 $`s`$。
 
 #### 5.2 Direct predecessors
 
@@ -323,15 +323,15 @@ $$
 Pre(s)=\bigcup_{\alpha\in Act}Pre_\alpha(s)
 $$
 
-即所有能一步到达 $s$ 的状态。
+即所有能一步到达 $`s`$ 的状态。
 
-#### 5.3 Direct $\alpha$-successors
+#### 5.3 Direct $`\alpha`$-successors
 
 $$
 Post_\alpha(s)=\{s'\in S\mid s\xrightarrow{\alpha}s'\}
 $$
 
-意思是：从 $s$ 执行动作 $\alpha$ 可以一步到达哪些状态。
+意思是：从 $`s`$ 执行动作 $`\alpha`$ 可以一步到达哪些状态。
 
 #### 5.4 Direct successors
 
@@ -339,26 +339,26 @@ $$
 Post(s)=\bigcup_{\alpha\in Act}Post_\alpha(s)
 $$
 
-即从 $s$ 出发一步可达的所有状态。
+即从 $`s`$ 出发一步可达的所有状态。
 
 #### 5.5 记忆方法
 
 - `Pre`：谁能到我；
 - `Post`：我能到谁；
-- 带 $\alpha$：只看某个动作；
-- 不带 $\alpha$：所有动作都考虑。
+- 带 $`\alpha`$：只看某个动作；
+- 不带 $`\alpha`$：所有动作都考虑。
 
 ------
 
 ### 6.Terminal State
 
-一个状态 $s$ 是 terminal，当且仅当：
+一个状态 $`s`$ 是 terminal，当且仅当：
 
 $$
 Post(s)=\emptyset
 $$
 
-也就是说，从 $s$ 没有任何后继状态。
+也就是说，从 $`s`$ 没有任何后继状态。
 
 如果：
 
@@ -366,9 +366,9 @@ $$
 Post(s)\neq\emptyset
 $$
 
-则 $s$ 是 non-terminal。
+则 $`s`$ 是 non-terminal。
 
-注意：如果一个状态有自环 $s\to s$，它不是 terminal，因为它仍然有 successor。
+注意：如果一个状态有自环 $`s\to s`$，它不是 terminal，因为它仍然有 successor。
 
 ------
 
@@ -475,7 +475,7 @@ $$
 
 ### 4.Reachable State
 
-状态 $s$ 是 reachable，如果存在一条从初始状态开始的有限合法路径到达它：
+状态 $`s`$ 是 reachable，如果存在一条从初始状态开始的有限合法路径到达它：
 
 $$
 s_0\alpha_1s_1\cdots\alpha_ns_n
@@ -572,10 +572,10 @@ $$
 
 其中：
 
-- $x$：输入；
-- $r$：当前寄存器值；
-- $y$：输出；
-- $r'$：下一状态寄存器值。
+- $`x`$：输入；
+- $`r`$：当前寄存器值；
+- $`y`$：输出；
+- $`r'`$：下一状态寄存器值。
 
 ------
 
@@ -585,7 +585,7 @@ $$
 
 状态是寄存器取值 evaluation。
 
-如果有 $n$ 个寄存器 bit，则状态数最多为：
+如果有 $`n`$ 个寄存器 bit，则状态数最多为：
 
 $$
 2^n
@@ -595,7 +595,7 @@ $$
 
 动作代表一次 clock，并携带输入 bits 的取值。
 
-如果输入有 $m$ bit，则动作数最多为：
+如果输入有 $`m`$ bit，则动作数最多为：
 
 $$
 2^m
@@ -613,7 +613,7 @@ $$
 
 #### 2.4 转移
 
-对于每个当前状态 $r$ 和输入 $x$：
+对于每个当前状态 $`r`$ 和输入 $`x`$：
 
 $$
 r'=f(x,r)
@@ -748,7 +748,7 @@ $$
 
 ### 3.Evaluation
 
-对于变量集合 $Var$，一个 evaluation 是一个 type-consistent function：
+对于变量集合 $`Var`$，一个 evaluation 是一个 type-consistent function：
 
 $$
 \eta:Var\to \bigcup_{x\in Var}Dom(x)
@@ -784,7 +784,7 @@ $$
 
 ### 4.Conditions 与 Satisfaction
 
-$Cond(Var)$ 表示关于变量集合 $Var$ 的布尔条件集合。
+$`Cond(Var)`$ 表示关于变量集合 $`Var`$ 的布尔条件集合。
 
 例子：
 
@@ -806,9 +806,9 @@ $$
 \eta\models g
 $$
 
-表示 evaluation $\eta$ 满足条件 $g$。
+表示 evaluation $`\eta`$ 满足条件 $`g`$。
 
-例如如果 $\eta(x)=5$，那么：
+例如如果 $`\eta(x)=5`$，那么：
 
 $$
 \eta\models x>0
@@ -830,9 +830,9 @@ $$
 Effect(\alpha,\eta)=\eta'
 $$
 
-表示在变量取值 $\eta$ 下执行动作 $\alpha$，得到新取值 $\eta'$。
+表示在变量取值 $`\eta`$ 下执行动作 $`\alpha`$，得到新取值 $`\eta'`$。
 
-例子：动作 $x:=x+1$，当前 $\eta(x)=3$，则：
+例子：动作 $`x:=x+1`$，当前 $`\eta(x)=3`$，则：
 
 $$
 Effect(x:=x+1,\eta)(x)=4
@@ -840,16 +840,16 @@ $$
 
 其他变量保持不变。
 
-**顺序赋值与同时赋值：** 设初始 $x=2,y=2$，此例变量取整数：
+**顺序赋值与同时赋值：** 设初始 $`x=2,y=2`$，此例变量取整数：
 
-- 顺序执行 $x:=2x+y;\ y:=10-2x$，第二条语句使用更新后的 $x=6$，得到 $x=6,y=-2$。
-- 同时赋值 $x,y:=2x+y,10-2x$，两个右侧表达式都使用旧值，得到 $x=6,y=6$。
+- 顺序执行 $`x:=2x+y;\ y:=10-2x`$，第二条语句使用更新后的 $`x=6`$，得到 $`x=6,y=-2`$。
+- 同时赋值 $`x,y:=2x+y,10-2x`$，两个右侧表达式都使用旧值，得到 $`x=6,y=6`$。
 
 ------
 
 ### 6.Program Graph 定义
 
-Program Graph over $Var$ 是一个元组：
+Program Graph over $`Var`$ 是一个元组：
 
 $$
 PG=(Loc,Act,Effect,\hookrightarrow,Loc_0,g_0)
@@ -859,12 +859,12 @@ $$
 
 | 符号 | 含义 |
 |---|---|
-| $Loc$ | 有限 location 集合 |
-| $Act$ | 动作集合 |
-| $Effect$ | 动作对变量 evaluation 的影响 |
-| $\hookrightarrow$ | 条件转移关系， $\hookrightarrow\subseteq Loc\times Cond(Var)\times Act\times Loc$ |
-| $Loc_0$ | 初始 location 集合 |
-| $g_0$ | 初始变量条件 |
+| $`Loc`$ | 有限 location 集合 |
+| $`Act`$ | 动作集合 |
+| $`Effect`$ | 动作对变量 evaluation 的影响 |
+| $`\hookrightarrow`$ | 条件转移关系， $`\hookrightarrow\subseteq Loc\times Cond(Var)\times Act\times Loc`$ |
+| $`Loc_0`$ | 初始 location 集合 |
+| $`g_0`$ | 初始变量条件 |
 
 Program Graph 的边写作：
 
@@ -872,19 +872,19 @@ $$
 \ell\xrightarrow{g:\alpha}\ell'
 $$
 
-含义：如果当前处于 location $\ell$，并且当前变量取值满足 guard $g$，则可以执行动作 $\alpha$，然后进入 $\ell'$。
+含义：如果当前处于 location $`\ell`$，并且当前变量取值满足 guard $`g`$，则可以执行动作 $`\alpha`$，然后进入 $`\ell'`$。
 
 其中：
 
-- $g$ 是 guard / condition；
-- $\alpha$ 是 action；
-- $\ell,\ell'$ 是 location。
+- $`g`$ 是 guard / condition；
+- $`\alpha`$ 是 action；
+- $`\ell,\ell'`$ 是 location。
 
 ------
 
 ### 7.Program Graph 到 Transition System 的语义
 
-Program Graph $PG$ 的 TS 记作：
+Program Graph $`PG`$ 的 TS 记作：
 
 $$
 TS(PG)
@@ -940,7 +940,7 @@ $$
 
 ------
 
-**例子：** 初始 $x=2,y=0$，执行循环“当 $x>0$ 时先令 $x:=x-1$，再令 $y:=y+1$”，对应状态序列为：
+**例子：** 初始 $`x=2,y=0`$，执行循环“当 $`x>0`$ 时先令 $`x:=x-1`$，再令 $`y:=y+1`$”，对应状态序列为：
 
 $$
 \langle l_1, 2, 0 \rangle
@@ -951,7 +951,7 @@ $$
 \to \langle l_3, 0, 2 \rangle
 $$
 
-这里三元组依次表示 location、 $x$、 $y$。如果要精确表示这一个初始赋值，应取 $g_0=(x=2\land y=0)$；仅有 $x>0$ 不能确定全部初始值。
+这里三元组依次表示 location、 $`x`$、 $`y`$。如果要精确表示这一个初始赋值，应取 $`g_0=(x=2\land y=0)`$；仅有 $`x>0`$ 不能确定全部初始值。
 
 ------
 
@@ -978,7 +978,7 @@ $$
 
 ### 9.Program Graph 的 Atomic Propositions 和 Labeling
 
-$AP=Loc\cup Cond(Var)$。Program Graph 转成 TS 后，原子命题包括：
+$`AP=Loc\cup Cond(Var)`$。Program Graph 转成 TS 后，原子命题包括：
 
 1. location 本身；
 2. 关于变量的条件。
@@ -989,7 +989,7 @@ $$
 \langle \ell,\eta\rangle
 $$
 
-通常满足 location 命题 $\ell$，也满足所有在 $\eta$ 下为真的变量条件。
+通常满足 location 命题 $`\ell`$，也满足所有在 $`\eta`$ 下为真的变量条件。
 
 可以写成：
 
@@ -1023,9 +1023,9 @@ $$
 
 | 对象 | 例子 |
 |---|---|
-| 状态 | $P,Q,R,S,T$ |
-| 输入动作 | $a,b$ |
-| 输出 | $X,Y$ |
+| 状态 | $`P,Q,R,S,T`$ |
+| 输入动作 | $`a,b`$ |
+| 输出 | $`X,Y`$ |
 
 ------
 
@@ -1033,15 +1033,15 @@ $$
 
 为了比较两个 TS，需要构造 product TS。
 
-若两个系统为 $TS_1$ 和 $TS_2$，则 product state 是状态对：
+若两个系统为 $`TS_1`$ 和 $`TS_2`$，则 product state 是状态对：
 
 $$
 (s_1,s_2)\in S_1\times S_2
 $$
 
-把 $(P,R)$ 写成 `PR`， $(Q,T)$ 写成 `QT`。
+把 $`(P,R)`$ 写成 `PR`， $`(Q,T)`$ 写成 `QT`。
 
-初始状态也必须配对。对于两个给定初始状态的电路，product 的初始状态就是这两个状态组成的状态对。若分别给出初始状态集合，则这里按 $S_{0,prod}=S_{0,1}\times S_{0,2}$ 比较所有初始组合。
+初始状态也必须配对。对于两个给定初始状态的电路，product 的初始状态就是这两个状态组成的状态对。若分别给出初始状态集合，则这里按 $`S_{0,prod}=S_{0,1}\times S_{0,2}`$ 比较所有初始组合。
 
 下面的等价判断限定在本节的确定性 Moore 电路模型、相同输入序列和上述初始状态约定下，不直接推广为任意非确定 TS 的等价定义。
 
@@ -1067,7 +1067,7 @@ $$
 (s_1,s_2)\xrightarrow{a}(s_1',s_2')
 $$
 
-如果一个动作是 $a$，另一个是 $b$，则不能配对。
+如果一个动作是 $`a`$，另一个是 $`b`$，则不能配对。
 
 原因：等价验证比较的是相同输入序列下的输出行为。
 
@@ -1130,13 +1130,13 @@ else:
 
 #### 5.1 状态空间爆炸
 
-如果两个系统状态数分别为 $N_1$ 和 $N_2$，product TS 状态数最多为：
+如果两个系统状态数分别为 $`N_1`$ 和 $`N_2`$，product TS 状态数最多为：
 
 $$
 N_1N_2
 $$
 
-如果两个电路分别有 $n_1$ 和 $n_2$ 个寄存器 bit，则：
+如果两个电路分别有 $`n_1`$ 和 $`n_2`$ 个寄存器 bit，则：
 
 $$
 N_1=2^{n_1},\quad N_2=2^{n_2}
@@ -1250,7 +1250,7 @@ SMT-LIB 使用前缀形式：
 (bvadd a #b001)
 ```
 
-假设 `a` 为 3-bit 位向量，表示模 8 的加法 $a+1$。位向量常量必须写明位宽，不能把整数 `1` 直接当作位向量操作数。语法说明参见 [SMT-LIB 位向量定义](https://smt-lib.org/theories-FixedSizeBitVectors.shtml)。
+假设 `a` 为 3-bit 位向量，表示模 8 的加法 $`a+1`$。位向量常量必须写明位宽，不能把整数 `1` 直接当作位向量操作数。语法说明参见 [SMT-LIB 位向量定义](https://smt-lib.org/theories-FixedSizeBitVectors.shtml)。
 
 ```lisp
 (ite flag (+ a 1) (- b 1))
