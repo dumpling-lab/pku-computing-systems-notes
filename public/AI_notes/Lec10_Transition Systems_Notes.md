@@ -950,6 +950,7 @@ $$
 \to \langle l_1, 0, 2 \rangle
 \to \langle l_3, 0, 2 \rangle
 $$
+
 这里三元组依次表示 location、$x$、$y$。如果要精确表示这一个初始赋值，应取 $g_0=(x=2\land y=0)$；仅有 $x>0$ 不能确定全部初始值。
 
 ------

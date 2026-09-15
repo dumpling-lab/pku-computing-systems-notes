@@ -321,6 +321,7 @@ U --> S[shared internal nodes]
 ### 6.BDD Operations
 
 **理论基础：**shannon 展开，对任意布尔函数 \(F\)，选择变量 \(x\)，有：
+
 $$
 F = \overline{x}F_{x=0} \lor xF_{x=1}
 $$
@@ -731,6 +732,7 @@ $$
 $$
 
 **由此可得，如果下面公式是 tautology（永真式），则可以验证电路实现了该 incompletely specified function：**
+
 $$
 d \lor (c \leftrightarrow f) \equiv 1
 $$

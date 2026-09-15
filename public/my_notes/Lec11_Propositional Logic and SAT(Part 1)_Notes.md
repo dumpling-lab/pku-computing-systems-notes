@@ -306,9 +306,11 @@ $F\text{ is valid} \quad \text{iff} \quad \lnot F\text{ is unsatisfiable}$
 **推理规则**是一种逻辑形式，可以看作一个函数：它接收若干个**前提**，分析这些前提的**语法结构**，然后返回一个**结论**。
 
 可以写作：
+
 $$
 \frac{\text{premise}_1,\ \text{premise}_2,\ \cdots,\ \text{premise}_n}{\text{conclusion}}
 $$
+
 意思是：如果上面的前提都成立，那么可以推出下面的结论。
 
 ------
@@ -516,4 +518,5 @@ F_1\Rightarrow F_2
 \quad \text{iff} \quad
 F_1\to F_2 \text{ is valid}
 $$
+
 其含义是：对所有解释，只要 $F_1$ 为真，$F_2$ 必为真。
