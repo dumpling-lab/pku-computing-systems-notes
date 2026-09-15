@@ -560,163 +560,165 @@ for (int i = 0; i < k; i++){
 }
 ```
 
-2. 假设**图中不存在非正环**，要求计算从 $`s`$ 到 $`t`$ 的**最短路径条数**。
+#### 扩展：计算最短路径条数
 
-   **2.1 一种错误方法的讨论**
+假设**图中不存在非正环**，要求计算从 $`s`$ 到 $`t`$ 的**最短路径条数**。
 
-   类似 $`Dijkstra`$，在松弛边 $`u \to v`$ 时，同时更新最短路径条数 $`f_{s\to v}`$，规则如下：
+##### 2.1 一种错误方法的讨论
 
-   $$
-   f_{s\to v}:=
-   \begin{cases}
-   f_{s\to v}, & d_{s\to u}+w_{u\to v}>d_{s\to v}\\[4pt]
-   f_{s\to v}+f_{s\to u}, & d_{s\to u}+w_{u\to v}=d_{s\to v}\\[4pt]
-   f_{s\to u}, & d_{s\to u}+w_{u\to v}<d_{s\to v}
-   \end{cases}
-   $$
+类似 $`Dijkstra`$，在松弛边 $`u \to v`$ 时，同时更新最短路径条数 $`f_{s\to v}`$，规则如下：
 
-   是否可行？
+$$
+f_{s\to v}:=
+\begin{cases}
+f_{s\to v}, & d_{s\to u}+w_{u\to v}>d_{s\to v}\\[4pt]
+f_{s\to v}+f_{s\to u}, & d_{s\to u}+w_{u\to v}=d_{s\to v}\\[4pt]
+f_{s\to u}, & d_{s\to u}+w_{u\to v}<d_{s\to v}
+\end{cases}
+$$
 
-   **不可行**。由于 $`Bellman-Ford`$ 进行多轮全边扫描，同一条边会被反复检查。这样即使某些点的最短距离已经不再变化，若仍在“等长松弛”时直接做 `f[v] += f[u]`，就会把同一份来自 `u` 的贡献在后续轮次里重复加到 `v` 上，导致最短路径条数被**重复统计**。
+是否可行？
 
-   **2.2 改进方案**
+**不可行**。由于 $`Bellman-Ford`$ 进行多轮全边扫描，同一条边会被反复检查。这样即使某些点的最短距离已经不再变化，若仍在“等长松弛”时直接做 `f[v] += f[u]`，就会把同一份来自 `u` 的贡献在后续轮次里重复加到 `v` 上，导致最短路径条数被**重复统计**。
 
-   为了避免重复统计，需要额外维护一个量 $`l[u][v]`$，表示**边 $`u \to v`$ 已经向 $`v`$ 累计过的那部分 $`f[u]`$**。
+##### 2.2 改进方案
 
-   - 若 $`d[u] + w > d[v]`$
+为了避免重复统计，需要额外维护一个量 $`l[u][v]`$，表示**边 $`u \to v`$ 已经向 $`v`$ 累计过的那部分 $`f[u]`$**。
 
-     经过边 $`u \to v`$ 不能得到更短或同样短的最短路，不需要更新任何量。
+**情况：** 若 $`d[u] + w > d[v]`$
 
-   - 若 $`d[u] + w = d[v]`$
+经过边 $`u \to v`$ 不能得到更短或同样短的最短路，不需要更新任何量。
 
-     补加新增量到 $`f[v]`$ 上：
+**情况：** 若 $`d[u] + w = d[v]`$
 
-     $$
-     f[v] \leftarrow f[v] + \bigl(f[u] - l_{u,v}\bigr)
-     $$
+补加新增量到 $`f[v]`$ 上：
 
-     同时将这条边已累计的贡献更新为当前的 $`f[u]`$：
+$$
+f[v] \leftarrow f[v] + \bigl(f[u] - l_{u,v}\bigr)
+$$
 
-     $$
-     l_{u,v} \leftarrow f[u]
-     $$
+同时将这条边已累计的贡献更新为当前的 $`f[u]`$：
 
-   - 若 $`d[u] + w < d[v]`$
+$$
+l_{u,v} \leftarrow f[u]
+$$
 
-     通过 $`u \to v`$ 找到了更短的路径，因此 $`v`$ **原来记录的最短路信息全部失效，需要整体更新**。此时应更新距离：
+**情况：** 若 $`d[u] + w < d[v]`$
 
-     $$
-     d[v] \leftarrow d[u] + w
-     $$
+通过 $`u \to v`$ 找到了更短的路径，因此 $`v`$ **原来记录的最短路信息全部失效，需要整体更新**。此时应更新距离：
 
-     并将最短路径条数直接改为来自 $`u`$ 的最短路径条数：
+$$
+d[v] \leftarrow d[u] + w
+$$
 
-     $$
-     f[v] \leftarrow f[u]
-     $$
+并将最短路径条数直接改为来自 $`u`$ 的最短路径条数：
 
-     边 $`u \to v`$ 对 $`v`$ 的已累计贡献应更新为：
+$$
+f[v] \leftarrow f[u]
+$$
 
-     $$
-     l_{u,v} \leftarrow f[u]
-     $$
+边 $`u \to v`$ 对 $`v`$ 的已累计贡献应更新为：
 
-     所有其他指向 $`v`$ 的旧累计记录都已经对应旧最短路，必须清零，即：
+$$
+l_{u,v} \leftarrow f[u]
+$$
 
-     $$
-     l_{x,v} \leftarrow 0 \qquad (x \neq u)
-     $$
+所有其他指向 $`v`$ 的旧累计记录都已经对应旧最短路，必须清零，即：
 
-   **2.3 时间复杂度**
+$$
+l_{x,v} \leftarrow 0 \qquad (x \neq u)
+$$
 
-   - 如果在“找到更短路”时直接把所有 `l[x][v]` 全部清零，总复杂度为  $`O(|V|^2|E|)`$ 。
+##### 2.3 时间复杂度
 
-   - 如果只重置非零的 `l[x][v]`，则可以将复杂度优化到 $`O(|V||E|)`$，与普通 $`Bellman-Ford`$ 同量级。
+- 如果在“找到更短路”时直接把所有 `l[x][v]` 全部清零，总复杂度为  $`O(|V|^2|E|)`$ 。
 
-   **2.4 代码**
+- 如果只重置非零的 `l[x][v]`，则可以将复杂度优化到 $`O(|V||E|)`$，与普通 $`Bellman-Ford`$ 同量级。
 
-   ```c++
-   #include <iostream>
-   #include <vector>
+##### 2.4 代码
 
-   using namespace std;
+```c++
+#include <iostream>
+#include <vector>
 
-   // Bellman-Ford 算法
-   // 允许负权边，但不存在负环
-   // 计算从 s 到 t 的最短路径条数
+using namespace std;
 
-   const long long INF = 0x3f3f3f3f;
+// Bellman-Ford 算法
+// 允许负权边，但不存在负环
+// 计算从 s 到 t 的最短路径条数
 
-   struct edge{
-       int u, v, w;
-   };
-   edge edges[1001];
-   long long int dist[1001];
-   long long int cnt[1001] = {0}; // cnt[u] 表示从 s 到 u 的最短路径条数
-   long long int part[1001][1001] = {0};
-   // part[u][v] 表示通过边 (u,v,w)，cnt[u] 已经向 cnt[v] 累计过的那部分值
-   // 用来避免重复统计
+const long long INF = 0x3f3f3f3f;
 
-   int n, m;
+struct edge{
+    int u, v, w;
+};
+edge edges[1001];
+long long int dist[1001];
+long long int cnt[1001] = {0}; // cnt[u] 表示从 s 到 u 的最短路径条数
+long long int part[1001][1001] = {0};
+// part[u][v] 表示通过边 (u,v,w)，cnt[u] 已经向 cnt[v] 累计过的那部分值
+// 用来避免重复统计
 
-   bool relax(int u,int v,int w){
-       if(dist[u] == INF){
-           return false;
-       }
-       if(dist[v] > dist[u] + w){
-           dist[v] = dist[u] + w;
-           cnt[v] = cnt[u];
-           for(int i = 1; i <= n; i++){
-               part[i][v] = 0;
-           }
-           part[u][v] = cnt[u];
-           return true;
-       }
-       else if(dist[v] == dist[u] + w){
-           cnt[v] = cnt[v] + cnt[u] - part[u][v];
-           part[u][v] = cnt[u];
-       }
-       // else if(dist[v] < dist[u] + w){
-       //     // 不需要更新
-       // }
-       return false;
-   }
+int n, m;
 
-   int main(){
-       cin >> n >> m;
-       int s, t;
-       cin >> s >> t;
-       for (int i = 0; i < m; i++){
-           cin >> edges[i].u >> edges[i].v >> edges[i].w;
-       }
-       for (int i = 1; i <= n; i++){
-           dist[i] = INF;
-       }
-       dist[s] = 0; // 初始化
-       cnt[s] = 1;
-       for (int i = 0; i < n - 1; i++){ // Bellman-Ford 主过程
-           for (int j = 0; j < m; j++){
-               relax(edges[j].u, edges[j].v, edges[j].w);
-           }
-       }
-       cout << cnt[t] << endl;
-       return 0;
-   }
+bool relax(int u,int v,int w){
+    if(dist[u] == INF){
+        return false;
+    }
+    if(dist[v] > dist[u] + w){
+        dist[v] = dist[u] + w;
+        cnt[v] = cnt[u];
+        for(int i = 1; i <= n; i++){
+            part[i][v] = 0;
+        }
+        part[u][v] = cnt[u];
+        return true;
+    }
+    else if(dist[v] == dist[u] + w){
+        cnt[v] = cnt[v] + cnt[u] - part[u][v];
+        part[u][v] = cnt[u];
+    }
+    // else if(dist[v] < dist[u] + w){
+    //     // 不需要更新
+    // }
+    return false;
+}
 
-   /*input sample:
-   5 6
-   1 4
-   1 2 2
-   1 3 3
-   3 2 -2
-   2 4 2
-   2 5 1
-   5 4 1
-   */
-   /*output sample:
-   2
-   */
-   ```
+int main(){
+    cin >> n >> m;
+    int s, t;
+    cin >> s >> t;
+    for (int i = 0; i < m; i++){
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+    }
+    for (int i = 1; i <= n; i++){
+        dist[i] = INF;
+    }
+    dist[s] = 0; // 初始化
+    cnt[s] = 1;
+    for (int i = 0; i < n - 1; i++){ // Bellman-Ford 主过程
+        for (int j = 0; j < m; j++){
+            relax(edges[j].u, edges[j].v, edges[j].w);
+        }
+    }
+    cout << cnt[t] << endl;
+    return 0;
+}
+
+/*input sample:
+5 6
+1 4
+1 2 2
+1 3 3
+3 2 -2
+2 4 2
+2 5 1
+5 4 1
+*/
+/*output sample:
+2
+*/
+```
 
 ### Floyd-Warshall算法
 
@@ -730,9 +732,7 @@ for (int i = 0; i < k; i++){
 
 2. **循环更新**：依次枚举每一个顶点 $`k`$ 作为中间点。对于每个固定的 $`k`$，再枚举所有点对 $`(i,j)`$，检查从 $`i`$ 到 $`j`$ 的路径是否可以通过顶点 $`k`$ 变得更短。若经过 $`k`$ 的路径长度 `dist[i][k] + dist[k][j]` 小于当前的 `dist[i][j]`，就用它更新 `dist[i][j]`。这个过程对应状态转移：
 
-   $$
-   dist[i][j] = \min(dist[i][j],\ dist[i][k] + dist[k][j])
-   $$
+   $`\displaystyle dist[i][j] = \min(dist[i][j],\ dist[i][k] + dist[k][j])`$
 
 3. 当所有顶点 $`k`$ 都枚举完成后，`dist[i][j]` 中存放的就是从 $`i`$ 到 $`j`$ 的最短路径长度。
 
@@ -891,9 +891,7 @@ int main(){
 
 4. **缩点图（Kernel graph）：** 将每个强连通分量缩成一个顶点，得到的新图是一个**有向无环图（DAG）**，记作：
 
-   $$
-   G^{SCC}=(V^{SCC},E^{SCC})
-   $$
+   $`\displaystyle G^{SCC}=(V^{SCC},E^{SCC})`$
 
 ### Kosaraju 算法
 
@@ -999,63 +997,45 @@ for (int i = 0; i < scc.size(); i++) {
 
 1. **流网络（容量网络）**：一个**连通的有向图**
 
-   $$
-   G=(V,E)
-   $$
+   $`\displaystyle G=(V,E)`$
 
    - 若边 $`(u,v)\in E`$，则它有一个**非负容量**
 
-     $$
-     c(u,v)>0
-     $$
+     $`\displaystyle c(u,v)>0`$
 
    - 如果 $`(u,v)\notin E`$，则规定
 
-     $$
-     c(u,v)=0
-     $$
+     $`\displaystyle c(u,v)=0`$
 
    - 图中有两个特殊顶点：**源点** $`s`$ 和 **汇点** $`t`$ 。
 
 2. **流（可行流）**：流 $`f`$ 是一组实数
 
-   $$
-   f(u,v)
-   $$
+   $`\displaystyle f(u,v)`$
 
    它们需要满足以下条件：
 
    - **容量限制**：
 
-     $$
-     f(u,v)\le c(u,v)
-     $$
+     $`\displaystyle f(u,v)\le c(u,v)`$
 
    - **反对称性**：
 
-     $$
-     f(u,v)=-f(v,u)
-     $$
+     $`\displaystyle f(u,v)=-f(v,u)`$
 
    - **流量守恒**：对任意
 
-     $$
-     u\in V-\{s,t\}
-     $$
+     $`\displaystyle u\in V-\{s,t\}`$
 
      都有
 
-     $$
-     \sum_{v} f(u,v)=0
-     $$
+     $`\displaystyle \sum_{v} f(u,v)=0`$
 
      也就是说，除了源点 $`s`$ 和汇点 $`t`$ 之外，**每个顶点流入它的流量等于流出它的流量**。
 
    **流 $`f`$ 的值** 定义为
 
-   $$
-   |f|=\sum_{v\in V} f(s,v)
-   $$
+   $`\displaystyle |f|=\sum_{v\in V} f(s,v)`$
 
    也就是：**从源点 $`s`$ 流出的总流量**，也等于：**流入汇点 $`t`$ 的总流量**。
 
@@ -1065,29 +1045,21 @@ for (int i = 0; i < scc.size(); i++) {
 
 4. **剩余容量（ $`slack`$ ）**，定义为：
 
-   $$
-   c(u,v)-f(u,v)
-   $$
+   $`\displaystyle c(u,v)-f(u,v)`$
 
    沿着选中的一条路径，能够增加的流量等于路径上所有边剩余容量的最小值：
 
-   $$
-   \min_{(u,v)\in path} \big(c(u,v)-f(u,v)\big)
-   $$
+   $`\displaystyle \min_{(u,v)\in path} \big(c(u,v)-f(u,v)\big)`$
 
 5. **剩余网络（ $`Residual`$ $`networks`$)** ：
 
    对于流 $`f`$，对应的剩余网络记作 $`G_f=(V,E_f)`$。在这个网络中，边 $`(u,v)`$ 的容量为
 
-   $$
-   c_f(u,v)=c(u,v)-f(u,v)
-   $$
+   $`\displaystyle c_f(u,v)=c(u,v)-f(u,v)`$
 
    并且我们还需要考虑**反向边**，由反对称性（skew symmetry），
 
-   $$
-   c_f(v,u)=c(v,u)-(-f(u,v))=c(v,u)+f(u,v)
-   $$
+   $`\displaystyle c_f(v,u)=c(v,u)-(-f(u,v))=c(v,u)+f(u,v)`$
 
 6. **增广路（ $`Augmenting`$ $`paths`$)** ：
 
@@ -1095,23 +1067,17 @@ for (int i = 0; i < scc.size(); i++) {
 
    一条增广路 $`p`$ 的**可增广流量**定义为这条路径上所有边的剩余容量的最小值。
 
-   $$
-   c_f(p)=\min_{(u,v)\in p} c_f(u,v)
-   $$
+   $`\displaystyle c_f(p)=\min_{(u,v)\in p} c_f(u,v)`$
 
    找到一条增广路后，**对原图的更新**：
 
    对于路径 $`p`$ 上的每一条边 $`(u,v)`$，把该边的流量更新为
 
-   $$
-   f(u,v):=f(u,v)+c_f(p)
-   $$
+   $`\displaystyle f(u,v):=f(u,v)+c_f(p)`$
 
    同时把反方向的流量更新为
 
-   $$
-   f(v,u):=f(v,u)-c_f(p)
-   $$
+   $`\displaystyle f(v,u):=f(v,u)-c_f(p)`$
 
    于是我们得到一个新的流网络，又可以得到一个新的剩余网络，然后我们继续寻找新的增广路······循环重复这一过程，直到——
 

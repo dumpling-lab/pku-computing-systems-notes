@@ -192,23 +192,15 @@ $$
 
    对于常量：
 
-   $$
-   I\models 1
-   $$
+   $`\displaystyle I\models 1`$
 
-   $$
-   I\not\models 0
-   $$
+   $`\displaystyle I\not\models 0`$
 
    对于原子命题 $`p`$：
 
-   $$
-   I\models p \quad \text{iff} \quad I(p)=1
-   $$
+   $`\displaystyle I\models p \quad \text{iff} \quad I(p)=1`$
 
-   $$
-   I\not\models p \quad \text{iff} \quad I(p)=0
-   $$
+   $`\displaystyle I\not\models p \quad \text{iff} \quad I(p)=0`$
 
 2. **归纳情况**
 
